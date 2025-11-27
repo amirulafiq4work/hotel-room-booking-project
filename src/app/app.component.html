@@ -1,0 +1,94 @@
+<div class="container-fluid py-4">
+  <!-- Header -->
+  <header class="text-center mb-5">
+    <h1 class="display-4 text-primary">Hotel Room Booking</h1>
+    <p class="lead">Find and book your perfect room</p>
+  </header>
+
+  <!-- Filter Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Filter by Room Type</h5>
+          <div class="btn-group" role="group">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="onFilterChange('')"
+              [class.active]="filterType === ''"
+            >
+              All Rooms
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="onFilterChange('single')"
+              [class.active]="filterType === 'single'"
+            >
+              Single
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="onFilterChange('double')"
+              [class.active]="filterType === 'double'"
+            >
+              Double
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="onFilterChange('suite')"
+              [class.active]="filterType === 'suite'"
+            >
+              Suite
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rooms Grid -->
+  <div class="row">
+    <app-room-card
+      *ngFor="let room of rooms"
+      [room]="room"
+      [filterType]="filterType"
+      (bookRoom)="openBookingModal($event)"
+    >
+    </app-room-card>
+  </div>
+
+  <!-- No Rooms Message -->
+  <div *ngIf="rooms.length === 0" class="text-center mt-5">
+    <h3>No rooms available</h3>
+  </div>
+
+  <!-- Booking Modal -->
+  <app-booking-modal
+    [room]="selectedRoom!"
+    [(visible)]="showModal"
+    (bookingConfirmed)="onBookingConfirmed($event)"
+  >
+  </app-booking-modal>
+
+  <!-- Success Toast -->
+  <div
+    *ngIf="showToast"
+    class="toast-container position-fixed bottom-0 end-0 p-3"
+  >
+    <div class="toast show" role="alert">
+      <div class="toast-header bg-success text-white">
+        <strong class="me-auto">Success!</strong>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          (click)="showToast = false"
+        ></button>
+      </div>
+      <div class="toast-body">Room booked successfully!</div>
+    </div>
+  </div>
+</div>

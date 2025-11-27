@@ -1,0 +1,24 @@
+<div class="col-md-6 col-lg-4 mb-4" *ngIf="shouldShowRoom()">
+  <div class="card h-100 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Room {{ room.name }}</h5>
+      <p class="card-text">
+        <span class="badge bg-primary mb-2">{{ room.type }}</span
+        ><br />
+        <strong>${{ room.price }}</strong> per night<br />
+        <span [class]="room.available ? 'text-success' : 'text-danger'">
+          {{ room.available ? 'Available' : 'Booked' }}
+        </span>
+      </p>
+    </div>
+    <div class="card-footer bg-transparent">
+      <button
+        class="btn btn-primary w-100"
+        (click)="room.available && onBookRoom()"
+        [disabled]="!room.available"
+      >
+        {{ room.available ? 'Book Now' : 'Unavailable' }}
+      </button>
+    </div>
+  </div>
+</div>

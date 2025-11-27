@@ -1,0 +1,139 @@
+<div class="modal-backdrop fade show" *ngIf="visible" (click)="close()"></div>
+
+<div
+  class="modal fade show d-block"
+  [class.show]="visible"
+  [style.display]="visible ? 'block' : 'none'"
+  tabindex="-1"
+  role="dialog"
+  *ngIf="visible"
+>
+  <div
+    class="modal-dialog modal-dialog-centered"
+    role="document"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Book Room {{ room?.name }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="close()"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Room Information -->
+        <div class="room-info-card" *ngIf="room">
+          <h6>Room Details</h6>
+          <div class="room-details">
+            <div>
+              <strong>Type:</strong>
+              <span class="room-type ms-2">{{ room.type }}</span>
+            </div>
+            <div class="room-price">${{ room.price }}/night</div>
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+          <!-- Guest Name -->
+          <div class="form-group">
+            <label for="guestName" class="form-label">Guest Name *</label>
+            <input
+              type="text"
+              id="guestName"
+              class="form-control"
+              formControlName="guestName"
+              placeholder="Enter your full name"
+              [class.is-invalid]="
+                bookingForm.get('guestName')?.invalid &&
+                bookingForm.get('guestName')?.touched
+              "
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="bookingForm.get('guestName')?.errors?.['required'] && bookingForm.get('guestName')?.touched"
+            >
+              Guest name is required
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="bookingForm.get('guestName')?.errors?.['minlength'] && bookingForm.get('guestName')?.touched"
+            >
+              Name must be at least 2 characters long
+            </div>
+          </div>
+
+          <!-- Date Inputs -->
+          <div class="date-inputs">
+            <!-- Check-in Date -->
+            <div class="form-group">
+              <label for="checkInDate" class="form-label"
+                >Check-in Date *</label
+              >
+              <input
+                type="date"
+                id="checkInDate"
+                class="form-control"
+                formControlName="checkInDate"
+                [class.is-invalid]="
+                  bookingForm.get('checkInDate')?.invalid &&
+                  bookingForm.get('checkInDate')?.touched
+                "
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="bookingForm.get('checkInDate')?.errors?.['required'] && bookingForm.get('checkInDate')?.touched"
+              >
+                Check-in date is required
+              </div>
+            </div>
+
+            <!-- Check-out Date -->
+            <div class="form-group">
+              <label for="checkOutDate" class="form-label"
+                >Check-out Date *</label
+              >
+              <input
+                type="date"
+                id="checkOutDate"
+                class="form-control"
+                formControlName="checkOutDate"
+                [class.is-invalid]="
+                  bookingForm.get('checkOutDate')?.invalid &&
+                  bookingForm.get('checkOutDate')?.touched
+                "
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="bookingForm.get('checkOutDate')?.errors?.['required'] && bookingForm.get('checkOutDate')?.touched"
+              >
+                Check-out date is required
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSubmit()"
+          [disabled]="bookingForm.invalid"
+        >
+          Confirm Booking
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
