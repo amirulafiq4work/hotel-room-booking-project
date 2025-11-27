@@ -11,15 +11,19 @@ A responsive Angular application for booking hotel rooms with real-time availabi
 - Responsive design for all devices
 - localStorage persistence
 
-## How to Run
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Start development server: `npm start`
-4. Open browser to `http://localhost:4200`
+## Live Demo
+- **StackBlitz**: https://stackblitz.com/edit/stackblitz-starters-7a6p8h2k
+- **GitHub**: https://github.com/amirulafiq4work/hotel-room-booking-project
 
-## Running Tests
-- Run all tests: `npm test`
-- Tests include component and service coverage
+## How to Run and Test
+1. Open the StackBlitz link above
+2. The application will load automatically
+3. Test all features:
+   - View room list
+   - Filter rooms by type
+   - Book available rooms
+   - See toast notifications
+4. Your changes won't affect the original code (It will fork your changes)
 
 ## Design Decisions
 - Used Angular Reactive Forms for better validation
